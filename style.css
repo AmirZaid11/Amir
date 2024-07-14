@@ -7,6 +7,9 @@ body {
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-position: center;
+    min-height: 100vh; /* Ensure full viewport height */
+    display: flex;
+    flex-direction: column;
 }
 
 .header {
@@ -64,9 +67,8 @@ body {
     background-color: #333;
     color: white;
     text-align: center;
-    padding: 20px;
-    position: fixed;
-    bottom: 0;
+    padding: 10px; /* Adjust padding as needed */
+    margin-top: auto; /* Push footer to the bottom */
     width: 100%;
 }
 
