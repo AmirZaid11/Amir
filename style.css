@@ -12,28 +12,18 @@ body {
     flex-direction: column;
 }
 
-.header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
-    padding: 10px 20px;
-}
-
 .logo {
     width: 50px; /* Adjust size as needed */
-    height: auto;
+    position: absolute;
+    top: 10px; /* Adjust top position */
+    left: 10px; /* Adjust left position */
 }
 
-.title {
+.header {
     text-align: center;
     color: white;
-    margin: 0;
-}
-
-.title h1 {
-    font-size: 2em; /* Adjust font size */
-    margin-bottom: 5px; /* Optional: Adjust spacing */
+    padding: 100px 0;
+    position: relative; /* Ensure relative positioning for absolute elements */
 }
 
 .posts-container {
