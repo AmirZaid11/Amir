@@ -13,9 +13,27 @@ body {
 }
 
 .header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+    padding: 10px 20px;
+}
+
+.logo {
+    width: 50px; /* Adjust size as needed */
+    height: auto;
+}
+
+.title {
     text-align: center;
     color: white;
-    padding: 100px 0;
+    margin: 0;
+}
+
+.title h1 {
+    font-size: 2em; /* Adjust font size */
+    margin-bottom: 5px; /* Optional: Adjust spacing */
 }
 
 .posts-container {
@@ -58,9 +76,11 @@ body {
 .post-description h2, .post-description p {
     color: white;
 }
+
 .post-description h2 {
     font-family: "Elephant", Arial, sans-serif; /* Apply Elephant font */
 }
+
 .show {
     display: block !important;
 }
