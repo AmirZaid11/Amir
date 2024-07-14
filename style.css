@@ -58,7 +58,9 @@ body {
 .post-description h2, .post-description p {
     color: white;
 }
-
+.post-description h2 {
+    font-family: "Elephant", Arial, sans-serif; /* Apply Elephant font */
+}
 .show {
     display: block !important;
 }
