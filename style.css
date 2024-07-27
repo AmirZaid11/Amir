@@ -1,3 +1,4 @@
+/* General Styles */
 body {
     font-family: Arial, sans-serif;
     margin: 0;
@@ -7,25 +8,67 @@ body {
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-position: center;
-    min-height: 100vh; /* Ensure full viewport height */
+    min-height: 100vh;
     display: flex;
     flex-direction: column;
 }
 
 .logo {
-    width: 50px; /* Adjust size as needed */
+    width: 50px;
     position: absolute;
-    top: 10px; /* Adjust top position */
-    left: 10px; /* Adjust left position */
+    top: 10px;
+    left: 10px;
 }
 
 .header {
     text-align: center;
     color: white;
     padding: 100px 0;
-    position: relative; /* Ensure relative positioning for absolute elements */
+    position: relative;
 }
 
+/* Navigation Bar Styles */
+.navbar {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+}
+
+.navbar ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.navbar li {
+    display: inline;
+    margin-left: 10px;
+}
+
+.navbar a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+/* AI Assistant Button */
+.ai-assistant {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.ai-assistant:hover {
+    background-color: #45a049;
+}
+
+/* Post Container Styles */
 .posts-container {
     display: flex;
     flex-wrap: wrap;
@@ -36,7 +79,7 @@ body {
 .post {
     width: 300px;
     margin: 20px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
     overflow: hidden;
     transition: transform 0.3s ease;
     cursor: pointer;
@@ -57,43 +100,59 @@ body {
 }
 
 .post-description {
-    display: none;
     padding: 15px;
     text-align: center;
     background: rgba(0, 0, 0, 0.5);
-}
-
-.post-description h2, .post-description p {
     color: white;
 }
 
-.post-description h2 {
-    font-family: "Elephant", Arial, sans-serif; /* Apply Elephant font */
+/* Modal Styles */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    padding-top: 100px;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.9);
 }
 
-.show {
-    display: block !important;
+.modal-content {
+    margin: auto;
+    display: block;
+    width: 80%;
+    max-width: 700px;
 }
 
+#caption {
+    text-align: center;
+    color: #ccc;
+    padding: 10px 0;
+}
+
+.close {
+    position: absolute;
+    top: 15px;
+    right: 35px;
+    color: #f1f1f1;
+    font-size: 40px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.close:hover {
+    color: #bbb;
+}
+
+/* Footer Styles */
 .footer {
     background-color: #333;
     color: white;
     text-align: center;
-    padding: 10px; /* Adjust padding as needed */
-    margin-top: auto; /* Push footer to the bottom */
+    padding: 10px;
+    margin-top: auto;
     width: 100%;
-}
-
-.footer button {
-    padding: 10px 20px;
-    background-color: #4CAF50;
-    border: none;
-    color: white;
-    cursor: pointer;
-    font-size: 16px;
-    border-radius: 5px;
-}
-
-.footer button:hover {
-    background-color: #45a049;
 }
