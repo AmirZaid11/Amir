@@ -1,3 +1,16 @@
+document.addEventListener('DOMContentLoaded', function() {
+    if (localStorage.getItem('backgroundMode') === 'dark') {
+        document.body.classList.add('dark-mode');
+    }
+});
+
+function toggleMode() {
+    document.body.classList.toggle('dark-mode');
+    const mode = document.body.classList.contains('dark-mode') ? 'dark' : 'picture';
+    localStorage.setItem('backgroundMode', mode);
+}
+
+
 // Enhanced and expanded JavaScript functionalities
 const posts = [
     {
