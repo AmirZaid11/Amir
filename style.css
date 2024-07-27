@@ -1,81 +1,91 @@
 body {
     font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
     background-image: url('dev.jpg');
     background-size: cover;
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-position: center;
-    min-height: 100vh;
+    min-height: 100vh; /* Ensure full viewport height */
     display: flex;
     flex-direction: column;
-    margin: 0;
-    padding: 0;
-    color: black;
-}
-
-.header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px 20px;
-    background-color: #fff;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
 }
 
 .logo {
-    width: 50px;
+    width: 50px; /* Adjust size as needed */
+    position: absolute;
+    top: 10px; /* Adjust top position */
+    left: 10px; /* Adjust left position */
 }
 
-.navbar .nav-toggle {
-    background: none;
-    border: none;
-    cursor: pointer;
-}
-
-.navbar .nav-menu.hidden {
-    display: none;
-}
-
-.navbar .nav-menu a {
-    display: block;
-    padding: 10px;
-    text-decoration: none;
-    color: black;
-}
-
-.mode-toggle {
-    background: none;
-    border: none;
-    cursor: pointer;
+.header {
+    text-align: center;
+    color: white;
+    padding: 100px 0;
+    position: relative; /* Ensure relative positioning for absolute elements */
 }
 
 .posts-container {
-    flex: 1;
-    padding: 20px;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
+    padding: 20px;
 }
 
-.ai-assistant {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    background-color: #4CAF50;
-    border: none;
-    color: white;
-    padding: 10px 20px;
-    border-radius: 5px;
+.post {
+    width: 300px;
+    margin: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    transition: transform 0.3s ease;
     cursor: pointer;
 }
 
-.ai-assistant:hover {
-    background-color: #45a049;
+.post:hover {
+    transform: scale(1.05);
+}
+
+.post img {
+    width: 100%;
+    height: auto;
+    transition: transform 0.3s ease;
+}
+
+.post:hover img {
+    transform: scale(1.1);
+}
+
+.post-description {
+    display: none;
+    padding: 15px;
+    text-align: center;
+    background: rgba(0, 0, 0, 0.5);
+}
+
+.post-description h2, .post-description p {
+    color: white;
 }
 
 .footer {
-    text-align: center;
-    padding: 10px;
     background-color: #333;
     color: white;
+    text-align: center;
+    padding: 10px; /* Adjust padding as needed */
+    margin-top: auto; /* Push footer to the bottom */
+    width: 100%;
+}
+
+.footer button {
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    border: none;
+    color: white;
+    cursor: pointer;
+    font-size: 16px;
+    border-radius: 5px;
+}
+
+.footer button:hover {
+    background-color: #45a049;
 }
