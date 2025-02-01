@@ -41,82 +41,6 @@
             flex: 1; /* Allow posts container to grow and push footer down */
         }
 
-        .card {
-            width: 300px;
-            height: 400px;
-            margin: 20px;
-            perspective: 1000px;
-        }
-
-        .card-inner {
-            width: 100%;
-            height: 100%;
-            position: relative;
-            transform-style: preserve-3d;
-            transition: transform 0.6s, scale 0.3s;
-        }
-
-        .card:hover .card-inner {
-            transform: rotateY(180deg) scale(0.95); /* Zoom out and flip */
-        }
-
-        .card-front, .card-back {
-            width: 100%;
-            height: 100%;
-            position: absolute;
-            backface-visibility: hidden;
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-
-        .card-front {
-            background-color: #fff;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: transform 0.3s;
-        }
-
-        .card-back {
-            background: rgba(255, 255, 255, 0.1); /* Glass-like background */
-            backdrop-filter: blur(10px); /* Blur effect for glass look */
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            color: white;
-            transform: rotateY(180deg);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
-            text-align: center;
-        }
-
-        .card img {
-            width: 100%;
-            height: auto;
-            transition: transform 0.3s;
-        }
-
-        .card h2 {
-            font-family: 'Elephant', Arial, sans-serif;
-            margin: 0;
-        }
-
-        .card a {
-            color: white;
-            text-decoration: none;
-            margin-top: 10px;
-            background-color: rgba(255, 255, 255, 0.2);
-            padding: 5px 10px;
-            border-radius: 5px;
-            transition: background-color 0.3s;
-        }
-
-        .card a:hover {
-            background-color: rgba(255, 255, 255, 0.4);
-        }
-
         .footer {
             background-color: #333;
             color: white;
@@ -144,21 +68,6 @@
         .footer button:hover {
             background-color: #45a049;
         }
-
-        .card-footer {
-            position: absolute;
-            bottom: 10px;
-            width: 100%;
-            display: flex;
-            justify-content: space-between;
-            padding: 0 20px;
-            font-size: 12px;
-            color: rgba(255, 255, 255, 0.7);
-        }
-
-        .card-footer span {
-            font-style: italic;
-        }
     </style>
 </head>
 <body>
@@ -175,12 +84,22 @@
 
             function createHeader() {
                 const header = document.createElement('div');
-                header.className = 'header';
+                Object.assign(header.style, {
+                    textAlign: 'center',
+                    color: 'white',
+                    padding: '100px 0',
+                    position: 'relative',
+                });
 
                 const logo = document.createElement('img');
                 logo.src = 'dev.png';
                 logo.alt = 'Amir Logo';
-                logo.className = 'logo';
+                Object.assign(logo.style, {
+                    width: '50px',
+                    position: 'absolute',
+                    top: '10px',
+                    left: '10px',
+                });
 
                 const h1 = document.createElement('h1');
                 h1.textContent = 'Amir';
@@ -197,7 +116,12 @@
 
             function createPostsContainer() {
                 const container = document.createElement('div');
-                container.className = 'posts-container';
+                Object.assign(container.style, {
+                    display: 'flex',
+                    flexWrap: 'wrap',
+                    justifyContent: 'center',
+                    padding: '20px',
+                });
 
                 const post1 = createCard(
                     'assets/Screenshot_20240714-202609.jpg',
@@ -221,25 +145,75 @@
 
             function createCard(imageSrc, title, link, descriptionText) {
                 const card = document.createElement('div');
-                card.className = 'card';
+                Object.assign(card.style, {
+                    width: '300px',
+                    height: '400px',
+                    margin: '20px',
+                    perspective: '1000px',
+                });
 
                 const cardInner = document.createElement('div');
-                cardInner.className = 'card-inner';
+                Object.assign(cardInner.style, {
+                    width: '100%',
+                    height: '100%',
+                    position: 'relative',
+                    transformStyle: 'preserve-3d',
+                    transition: 'transform 0.6s, scale 0.3s',
+                });
 
                 const cardFront = document.createElement('div');
-                cardFront.className = 'card-front';
+                Object.assign(cardFront.style, {
+                    width: '100%',
+                    height: '100%',
+                    position: 'absolute',
+                    backfaceVisibility: 'hidden',
+                    borderRadius: '10px',
+                    overflow: 'hidden',
+                    boxShadow: '0 0 10px rgba(0, 0, 0, 0.1)',
+                    backgroundColor: '#fff',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                });
 
                 const img = document.createElement('img');
                 img.src = imageSrc;
                 img.alt = title;
+                Object.assign(img.style, {
+                    width: '100%',
+                    height: 'auto',
+                });
 
                 cardFront.appendChild(img);
 
                 const cardBack = document.createElement('div');
-                cardBack.className = 'card-back';
+                Object.assign(cardBack.style, {
+                    width: '100%',
+                    height: '100%',
+                    position: 'absolute',
+                    backfaceVisibility: 'hidden',
+                    borderRadius: '10px',
+                    overflow: 'hidden',
+                    boxShadow: '0 0 10px rgba(0, 0, 0, 0.1)',
+                    backgroundColor: 'rgba(255, 255, 255, 0.1)',
+                    backdropFilter: 'blur(10px)',
+                    border: '1px solid rgba(255, 255, 255, 0.2)',
+                    color: 'white',
+                    transform: 'rotateY(180deg)',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    padding: '20px',
+                    textAlign: 'center',
+                });
 
                 const h2 = document.createElement('h2');
                 h2.textContent = title;
+                Object.assign(h2.style, {
+                    fontFamily: '"Elephant", Arial, sans-serif',
+                    margin: '0',
+                });
 
                 const p = document.createElement('p');
                 p.textContent = descriptionText;
@@ -247,10 +221,34 @@
                 const a = document.createElement('a');
                 a.href = link;
                 a.textContent = 'DOWNLOAD HERE';
+                Object.assign(a.style, {
+                    color: 'white',
+                    textDecoration: 'none',
+                    marginTop: '10px',
+                    backgroundColor: 'rgba(255, 255, 255, 0.2)',
+                    padding: '5px 10px',
+                    borderRadius: '5px',
+                    transition: 'background-color 0.3s',
+                });
 
-                // Add footer text to the back of the card
+                a.addEventListener('mouseenter', () => {
+                    a.style.backgroundColor = 'rgba(255, 255, 255, 0.4)';
+                });
+                a.addEventListener('mouseleave', () => {
+                    a.style.backgroundColor = 'rgba(255, 255, 255, 0.2)';
+                });
+
                 const cardFooter = document.createElement('div');
-                cardFooter.className = 'card-footer';
+                Object.assign(cardFooter.style, {
+                    position: 'absolute',
+                    bottom: '10px',
+                    width: '100%',
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    padding: '0 20px',
+                    fontSize: '12px',
+                    color: 'rgba(255, 255, 255, 0.7)',
+                });
 
                 const author = document.createElement('span');
                 author.textContent = 'Written by Ernest';
@@ -270,21 +268,48 @@
                 cardInner.appendChild(cardBack);
                 card.appendChild(cardInner);
 
+                card.addEventListener('mouseenter', () => {
+                    cardInner.style.transform = 'rotateY(180deg) scale(0.95)';
+                });
+                card.addEventListener('mouseleave', () => {
+                    cardInner.style.transform = 'rotateY(0deg) scale(1)';
+                });
+
                 return card;
             }
 
             function createFooter() {
                 const footer = document.createElement('div');
-                footer.className = 'footer';
+                Object.assign(footer.style, {
+                    backgroundColor: '#333',
+                    color: 'white',
+                    textAlign: 'center',
+                    width: '100%',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    height: '80px',
+                    padding: '10px 0',
+                });
 
                 const p = document.createElement('p');
                 p.textContent = 'Amir Foundation';
-                p.style.margin = '0'; // Remove default margin
+                p.style.margin = '0';
 
                 const button = document.createElement('button');
                 button.textContent = 'Contact Me';
+                Object.assign(button.style, {
+                    padding: '10px 20px',
+                    backgroundColor: '#4CAF50',
+                    border: 'none',
+                    color: 'white',
+                    cursor: 'pointer',
+                    fontSize: '16px',
+                    borderRadius: '5px',
+                    margin: '10px 0',
+                });
 
-                // Add hover effect to button
                 button.addEventListener('mouseenter', () => {
                     button.style.backgroundColor = '#45a049';
                 });
