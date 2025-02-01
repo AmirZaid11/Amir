@@ -11,7 +11,7 @@
             padding: 0;
             background-image: url('dev.jpg');
             background-size: cover;
-            background-repeat: 'no-repeat';
+            background-repeat: no-repeat;
             background-attachment: fixed;
             background-position: center;
             min-height: 100vh;
@@ -79,7 +79,9 @@
         }
 
         .card-back {
-            background: linear-gradient(135deg, #6a11cb, #2575fc); /* Gradient background */
+            background: rgba(255, 255, 255, 0.1); /* Glass-like background */
+            backdrop-filter: blur(10px); /* Blur effect for glass look */
+            border: 1px solid rgba(255, 255, 255, 0.2);
             color: white;
             transform: rotateY(180deg);
             display: flex;
@@ -87,6 +89,7 @@
             align-items: center;
             justify-content: center;
             padding: 20px;
+            text-align: center;
         }
 
         .card img {
@@ -123,6 +126,8 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
+            height: 80px; /* Smaller footer height */
+            padding: 10px 0; /* Adjust padding */
         }
 
         .footer button {
@@ -138,6 +143,21 @@
 
         .footer button:hover {
             background-color: #45a049;
+        }
+
+        .card-footer {
+            position: absolute;
+            bottom: 10px;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            padding: 0 20px;
+            font-size: 12px;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .card-footer span {
+            font-style: italic;
         }
     </style>
 </head>
@@ -228,9 +248,23 @@
                 a.href = link;
                 a.textContent = 'DOWNLOAD HERE';
 
+                // Add footer text to the back of the card
+                const cardFooter = document.createElement('div');
+                cardFooter.className = 'card-footer';
+
+                const author = document.createElement('span');
+                author.textContent = 'Written by Ernest';
+
+                const date = document.createElement('span');
+                date.textContent = new Date().toLocaleDateString(); // Dynamic date
+
+                cardFooter.appendChild(author);
+                cardFooter.appendChild(date);
+
                 cardBack.appendChild(h2);
                 cardBack.appendChild(p);
                 cardBack.appendChild(a);
+                cardBack.appendChild(cardFooter);
 
                 cardInner.appendChild(cardFront);
                 cardInner.appendChild(cardBack);
@@ -242,12 +276,6 @@
             function createFooter() {
                 const footer = document.createElement('div');
                 footer.className = 'footer';
-
-                // Set footer height and padding dynamically
-                Object.assign(footer.style, {
-                    height: '80px', // Smaller footer height
-                    padding: '10px 0', // Adjust padding
-                });
 
                 const p = document.createElement('p');
                 p.textContent = 'Amir Foundation';
