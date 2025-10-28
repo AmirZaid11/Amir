@@ -64,7 +64,7 @@ const MOCK_POSTS = {
   funny: [{ title:'Meme drop: Monday', excerpt:'When your code runs on the first try — impossible.', time:'2025-10-20' }],
   girlchild: [{ title:'Mentorship meetup', excerpt:'Join us this Saturday for CV building & mentorship.', time:'2025-10-12' }],
   classy: [{ title:'Short: Jaba Reloaded', excerpt:'Elegance with a twist — new chapter live.', time:'2025-09-28' }],
-  maseno: [{ title:'Term Dates 2025', excerpt:'The senate approved new term dates for 2024-2025', time:'2025-07-14' }],
+  maseno: [{ title:'LECTURERS STRIKE', excerpt:'Which way For Comrades', time:'2025-07-14' }],
   feel: [{ title:'Confession: I loved and lost', excerpt:'It was a river of reasons and quiet nights.', time:'2025-08-28' }]
 };
 
