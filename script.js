@@ -10,50 +10,50 @@ const CHANNELS = [
     id: 'silent',
     title: 'Silent Author',
     tagline: 'Where I tell your story in Pen, my crying pen',
-    img: 'assets/silent_author.jpg',
-    link: 'https://chat.whatsapp.com/INVITE_LINK_1'
+    img: 'assets/SA.jpg',
+    link: 'https://whatsapp.com/channel/0029VabdMbW2kNFrX96GjU0X'
   },
   {
     id: 'motivate',
     title: 'Motivational & Inspiration',
     tagline: 'Go hard or Go home',
-    img: 'assets/motivation.jpg',
-    link: 'https://chat.whatsapp.com/INVITE_LINK_2'
+    img: 'assets/MOT.jpg',
+    link: 'https://whatsapp.com/channel/0029Vb6b3bIIXnlzwhoO9s2S'
   },
   {
     id: 'funny',
     title: 'Funny Chats',
     tagline: 'Hilarious Responses, Laugh with us',
-    img: 'assets/funny.jpg',
-    link: 'https://chat.whatsapp.com/INVITE_LINK_3'
+    img: 'assets/FUNNY.jpg',
+    link: 'https://whatsapp.com/channel/0029Vb78xvK9RZAeYJ1vZ52Y'
   },
   {
     id: 'girlchild',
     title: 'Maseno Girlchild Empowerment',
     tagline: 'If not Ladies, who else',
-    img: 'assets/girlchild.jpg',
-    link: 'https://chat.whatsapp.com/INVITE_LINK_4'
+    img: 'assets/MGCE.jpg',
+    link: 'https://whatsapp.com/channel/0029Vac4qi7I7BeEmwRCGT2n'
   },
   {
     id: 'classy',
     title: 'Not Sassy, Just Classy',
     tagline: 'Story Za Jaba Reloaded',
-    img: 'assets/classy.jpg',
-    link: 'https://chat.whatsapp.com/INVITE_LINK_5'
+    img: 'assets/NOT NASTY.jpg',
+    link: 'https://whatsapp.com/channel/0029VagrgeW7Noa9WMoww430'
   },
   {
     id: 'maseno',
     title: 'Maseno University',
     tagline: 'All updates From our University',
     img: 'assets/maseno_university.jpg',
-    link: 'https://chat.whatsapp.com/INVITE_LINK_6'
+    link: 'https://whatsapp.com/channel/0029VaF4Qeu4Y9ljNjoOdA02'
   },
   {
     id: 'feel',
     title: 'These Feelings',
     tagline: 'Expressing My Heart in wild form, hating and loving love.',
-    img: 'assets/feelings.jpg',
-    link: 'https://chat.whatsapp.com/INVITE_LINK_7'
+    img: 'assets/THESE.jpg',
+    link: 'https://whatsapp.com/channel/0029ValMOK2KbYME1O03Bn3l'
   }
 ];
 
