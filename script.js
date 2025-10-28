@@ -1,7 +1,9 @@
-// script.js
-// Handles canvas bursting background, welcome flow, UI interactions, modals, and mock trending.
+/* script.js
+   - Canvas cosmic particle network with neon cycling colors
+   - UI: welcome auto-fade, channel modals, trending, contact modal
+*/
 
-// ---------- Data (channels + mock posts) ----------
+// ---------- Data ----------
 const CHANNELS = [
   { id: 'silent', title:'Silent Author', tagline:'Where I tell your story in Pen, my crying pen', imgSeed:'writing', link:'https://chat.whatsapp.com/YOUR_INVITE_1' },
   { id: 'motivate', title:'Motivational & Inspiration', tagline:'Go hard or Go home', imgSeed:'motivation', link:'https://chat.whatsapp.com/YOUR_INVITE_2' },
@@ -37,11 +39,6 @@ const qsa = s => Array.from(document.querySelectorAll(s));
 const cardsEl = qs('#cards');
 const trendListEl = qs('#trendList');
 const modalBackdrop = qs('#channelModal');
-const modalTitle = qs('#modalTitle');
-const modalTag = qs('#modalTag');
-const modalImg = qs('#modalImg');
-const modalBody = qs('#modalBody');
-const modalJoin = qs('#modalJoin');
 const modalClose = qs('#modalClose');
 const contactModal = qs('#contactModal');
 const contactClose = qs('#contactClose');
@@ -52,45 +49,67 @@ const yearEl = qs('#year');
 
 yearEl.textContent = new Date().getFullYear();
 
-// ---------- Canvas bursting background ----------
-(function createBurstCanvas(){
+// ---------- Canvas: cosmic particle network ----------
+(function createParticleNetwork(){
   const canvas = qs('#bgCanvas');
   const ctx = canvas.getContext('2d');
   let W = canvas.width = innerWidth;
   let H = canvas.height = innerHeight;
+
   window.addEventListener('resize', () => {
     W = canvas.width = innerWidth;
     H = canvas.height = innerHeight;
   });
 
-  // Particle / blob class
-  class Blob {
-    constructor(x,y,r, hueA, hueB, speed, drift){
-      this.x = x; this.y = y; this.r = r;
-      this.hueA = hueA; this.hueB = hueB;
-      this.speed = speed;
-      this.drift = drift;
-      this.t = Math.random()*1000;
+  // particles
+  const PARTICLE_COUNT = Math.max(40, Math.floor((W*H)/90000));
+  const particles = [];
+
+  // color hue cycle
+  const hues = [
+    [144, 152, 255], // purple-blue
+    [0, 180, 255],   // cyan
+    [255, 102, 204], // pink
+    [0, 200, 150]    // green-teal
+  ];
+  let hueIndex = 0;
+  let hueLerp = 0;
+  const HUE_CYCLE_TIME = 12.0; // seconds to complete a cycle between pairs
+
+  function rand(min, max){ return Math.random()*(max-min)+min; }
+
+  class Particle {
+    constructor(){
+      this.reset(true);
+    }
+    reset(init=false){
+      this.x = rand(0, W);
+      this.y = rand(0, H);
+      this.vx = rand(-12,12)/10;
+      this.vy = rand(-12,12)/10;
+      this.r = rand(3, 12) + (Math.random()*6);
+      this.noiseOffset = Math.random()*1000;
+      this.life = rand(8, 22);
+      this.age = init ? rand(0, this.life) : 0;
     }
     step(dt){
-      this.t += dt * this.speed;
-      // small orbit + drift
-      this.x += Math.sin(this.t*0.2)*0.15 + this.drift.x * dt;
-      this.y += Math.cos(this.t*0.15)*0.12 + this.drift.y * dt;
-      // bounce edges softly
-      if(this.x < -this.r) this.x = W + this.r;
-      if(this.x > W + this.r) this.x = -this.r;
-      if(this.y < -this.r) this.y = H + this.r;
-      if(this.y > H + this.r) this.y = -this.r;
+      this.noiseOffset += dt*0.1;
+      this.x += this.vx + Math.sin(this.noiseOffset)*0.15;
+      this.y += this.vy + Math.cos(this.noiseOffset)*0.15;
+      this.age += dt;
+      if(this.x < -50 || this.x > W+50 || this.y < -50 || this.y > H+50 || this.age > this.life){
+        this.reset(false);
+        // place back within screen
+        this.x = rand(0, W); this.y = rand(0, H);
+      }
     }
-    draw(ctx){
-      // radial gradient with two hues
-      const g = ctx.createRadialGradient(this.x, this.y, this.r*0.05, this.x, this.y, this.r);
-      g.addColorStop(0, `rgba(${this.hueA.join(',')},0.95)`);
-      g.addColorStop(0.35, `rgba(${this.hueA.join(',')},0.6)`);
-      g.addColorStop(0.65, `rgba(${this.hueB.join(',')},0.35)`);
-      g.addColorStop(1, `rgba(${this.hueB.join(',')},0.0)`);
-      ctx.globalCompositeOperation = 'screen';
+    draw(ctx, colorA, colorB){
+      const g = ctx.createRadialGradient(this.x, this.y, 0, this.x, this.y, this.r*6);
+      g.addColorStop(0, `rgba(${colorA.join(',')}, 0.95)`);
+      g.addColorStop(0.2, `rgba(${colorA.join(',')}, 0.55)`);
+      g.addColorStop(0.6, `rgba(${colorB.join(',')}, 0.22)`);
+      g.addColorStop(1, `rgba(${colorB.join(',')}, 0.0)`);
+      ctx.globalCompositeOperation = 'lighter';
       ctx.fillStyle = g;
       ctx.beginPath();
       ctx.arc(this.x, this.y, this.r, 0, Math.PI*2);
@@ -98,53 +117,95 @@ yearEl.textContent = new Date().getFullYear();
     }
   }
 
-  // helper to pick color pairs
-  function pickPair(i){
-    // some pleasant color pairs (RGB arrays)
-    const pairs = [
-      [[255,107,107],[255,198,113]],
-      [[123,97,255],[52,211,153]],
-      [[255,90,145],[255,195,180]],
-      [[100,200,255],[150,120,255]],
-      [[255,160,100],[240,100,180]]
-    ];
-    return pairs[i % pairs.length];
-  }
+  for(let i=0;i<PARTICLE_COUNT;i++) particles.push(new Particle());
 
-  // create blobs
-  const blobs = [];
-  const count = Math.max(5, Math.floor((W*H)/150000)); // scale by screen area
-  for(let i=0;i<count;i++){
-    const r = 160 + Math.random()*220;
-    const x = Math.random()*W;
-    const y = Math.random()*H;
-    const [a,b] = pickPair(i);
-    const speed = 0.06 + Math.random()*0.14;
-    const drift = { x: (Math.random()-0.5)*0.04, y: (Math.random()-0.5)*0.04 };
-    blobs.push(new Blob(x,y,r,a,b,speed,drift));
-  }
-
+  // draw loop
   let last = performance.now();
   function loop(now){
-    const dt = (now - last) / 1000;
+    const dt = (now - last)/1000;
     last = now;
+
+    // update hue lerp
+    hueLerp += dt / HUE_CYCLE_TIME;
+    if(hueLerp >= 1.0){
+      hueLerp = 0;
+      hueIndex = (hueIndex + 1) % hues.length;
+    }
+    const aIdx = hueIndex;
+    const bIdx = (hueIndex+1) % hues.length;
+    // interpolate colors between a and b by hueLerp
+    const colorA = [
+      Math.round( hues[aIdx][0] * (1-hueLerp) + hues[bIdx][0] * hueLerp ),
+      Math.round( hues[aIdx][1] * (1-hueLerp) + hues[bIdx][1] * hueLerp ),
+      Math.round( hues[aIdx][2] * (1-hueLerp) + hues[bIdx][2] * hueLerp )
+    ];
+    const colorB = [
+      Math.round( (hues[aIdx][0]+60) * (1-hueLerp) + (hues[bIdx][0]+60) * hueLerp ),
+      Math.round( (hues[aIdx][1]+20) * (1-hueLerp) + (hues[bIdx][1]+20) * hueLerp ),
+      Math.round( (hues[aIdx][2]+40) * (1-hueLerp) + (hues[bIdx][2]+40) * hueLerp )
+    ];
+
     // clear
     ctx.clearRect(0,0,W,H);
-    // subtle dark overlay to keep contrast
-    ctx.fillStyle = 'rgba(7,16,33,0.35)';
+    // subtle darker overlay for contrast
+    ctx.fillStyle = 'rgba(7, 16, 33, 0.35)';
     ctx.fillRect(0,0,W,H);
-    // draw blobs
-    for(const b of blobs){
-      b.step(dt);
-      b.draw(ctx);
+
+    // update & draw particles
+    particles.forEach(p => {
+      p.step(dt);
+      p.draw(ctx, colorA, colorB);
+    });
+
+    // connect close particles with lines
+    const maxDist = 160;
+    ctx.beginPath();
+    for(let i=0;i<particles.length;i++){
+      for(let j=i+1;j<particles.length;j++){
+        const p = particles[i], q = particles[j];
+        const dx = p.x - q.x, dy = p.y - q.y;
+        const d2 = dx*dx + dy*dy;
+        if(d2 < maxDist*maxDist){
+          const alpha = 1 - (Math.sqrt(d2)/maxDist);
+          ctx.strokeStyle = `rgba(${colorA.join(',')},${(alpha*0.22).toFixed(3)})`;
+          ctx.lineWidth = 1;
+          ctx.beginPath();
+          ctx.moveTo(p.x, p.y);
+          ctx.lineTo(q.x, q.y);
+          ctx.stroke();
+        }
+      }
     }
+
     requestAnimationFrame(loop);
   }
   requestAnimationFrame(loop);
+
+  // click ripple / burst effect
+  window.addEventListener('pointerdown', (ev) => {
+    const x = ev.clientX, y = ev.clientY;
+    // spawn a few transient particles near click
+    for(let i=0;i<8;i++){
+      const p = new Particle();
+      p.x = x + (Math.random()-0.5)*40;
+      p.y = y + (Math.random()-0.5)*40;
+      p.vx = (Math.random()-0.5)*3;
+      p.vy = (Math.random()-0.5)*3;
+      p.r = 8 + Math.random()*16;
+      p.life = 0.9 + Math.random()*1.4;
+      particles.push(p);
+      // remove after life time
+      setTimeout(()=> {
+        const idx = particles.indexOf(p);
+        if(idx>=0) particles.splice(idx,1);
+      }, (p.life+0.1)*1000);
+    }
+  });
 })();
 
 // ---------- UI: render channels and trending ----------
 function renderChannels(){
+  const cardsEl = document.getElementById('cards');
   cardsEl.innerHTML = '';
   CHANNELS.forEach((c,i) => {
     const img = `https://picsum.photos/seed/${encodeURIComponent(c.imgSeed)}${i}/900/600`;
@@ -160,7 +221,6 @@ function renderChannels(){
           <button class="btn copy" data-link="${c.link}">Copy Link</button>
         </div>
       </div>`;
-    // events
     card.querySelector('.btn.join').addEventListener('click', (e)=>{ e.stopPropagation(); openChannelModal(c.id); });
     card.querySelector('.btn.copy').addEventListener('click', async (e)=>{ e.stopPropagation(); try { await navigator.clipboard.writeText(c.link); showToast('Link copied', `${c.title} link copied.`);} catch { showToast('Copy failed','Open the link manually.'); }});
     card.addEventListener('click', ()=> openChannelModal(c.id));
@@ -170,6 +230,7 @@ function renderChannels(){
 }
 
 function renderTrending(){
+  const trendListEl = document.getElementById('trendList');
   trendListEl.innerHTML = '';
   TRENDING.forEach((t,idx) => {
     const it = document.createElement('div'); it.className='trend-item';
@@ -198,8 +259,7 @@ function openChannelModal(id){
   qs('#modalTag').textContent = channel.tagline;
   qs('#modalImg').src = `https://picsum.photos/seed/${encodeURIComponent(channel.imgSeed + 'modal')}/1200/800`;
   qs('#modalJoin').href = channel.link;
-  const body = qs('#modalBody');
-  body.innerHTML = '';
+  const body = qs('#modalBody'); body.innerHTML = '';
   const posts = MOCK_POSTS[id] || [];
   if(!posts.length) body.innerHTML = `<div style="color:var(--muted)">No recent posts yet.</div>`;
   else posts.forEach(p => {
@@ -212,25 +272,13 @@ function openChannelModal(id){
   modalBackdrop.setAttribute('aria-hidden','false');
   modalClose.focus();
 }
-
-function closeModal(){
-  modalBackdrop.style.display='none';
-  modalBackdrop.setAttribute('aria-hidden','true');
-}
+function closeModal(){ modalBackdrop.style.display='none'; modalBackdrop.setAttribute('aria-hidden','true'); }
 modalClose.addEventListener('click', closeModal);
 modalBackdrop.addEventListener('click', (e)=> { if(e.target===modalBackdrop) closeModal(); });
 
 // ---------- Contact modal ----------
-function openContactModal(){
-  contactModal.style.display='flex';
-  contactModal.setAttribute('aria-hidden','false');
-  qs('#contactName').focus();
-}
-function closeContact(){
-  contactModal.style.display='none';
-  contactModal.setAttribute('aria-hidden','true');
-  contactStatus.textContent='';
-}
+function openContactModal(){ contactModal.style.display='flex'; contactModal.setAttribute('aria-hidden','false'); qs('#contactName').focus(); }
+function closeContact(){ contactModal.style.display='none'; contactModal.setAttribute('aria-hidden','true'); contactStatus.textContent=''; }
 qs('#openContact').addEventListener('click', openContactModal);
 qs('#navContact').addEventListener('click', openContactModal);
 qs('#contactClose').addEventListener('click', closeContact);
@@ -243,7 +291,7 @@ qs('#sendContact').addEventListener('click', () => {
   setTimeout(()=> { contactStatus.textContent='Message sent — Amir will get back to you.'; qs('#contactName').value=''; qs('#contactEmail').value=''; qs('#contactMsg').value=''; setTimeout(closeContact,1200); }, 900);
 });
 
-// ---------- Small UI helpers (toasts, nav, welcome) ----------
+// ---------- Small UI helpers ----------
 function showToast(title, body, timeout=5200){
   const t = document.createElement('div'); t.style.position='fixed'; t.style.right='18px'; t.style.bottom='18px'; t.style.zIndex=9999;
   t.style.background='linear-gradient(90deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01))'; t.style.padding='12px'; t.style.borderRadius='10px'; t.style.boxShadow='0 20px 60px rgba(0,0,0,0.6)';
@@ -253,7 +301,7 @@ function showToast(title, body, timeout=5200){
   setTimeout(()=> t.remove(), timeout);
 }
 
-// Welcome enter flow
+// ---------- Welcome flow (auto hide after 5s OR Enter) ----------
 qs('#enterBtn').addEventListener('click', () => {
   welcomeScreen.style.display='none';
   mainEl.style.display='block';
@@ -262,6 +310,17 @@ qs('#enterBtn').addEventListener('click', () => {
   setInterval(pushRandomTrend, 14000);
 });
 
+// auto fade after 5 seconds
+setTimeout(()=> {
+  if(welcomeScreen && welcomeScreen.style.display !== 'none'){
+    welcomeScreen.style.display='none';
+    mainEl.style.display='block';
+    renderChannels();
+    renderTrending();
+    setInterval(pushRandomTrend, 14000);
+  }
+}, 5000);
+
 // nav helpers
 qs('#navChannels').addEventListener('click', ()=> qs('#cards').scrollIntoView({behavior:'smooth'}));
 qs('#navTrending').addEventListener('click', ()=> qs('#trendList').scrollIntoView({behavior:'smooth'}));
@@ -269,9 +328,9 @@ qs('#navHome').addEventListener('click', ()=> window.scrollTo({top:0,behavior:'s
 qs('#openAll').addEventListener('click', ()=> { showToast('Opening channels','Each link will open in a new tab.'); CHANNELS.forEach(c=> window.open(c.link,'_blank')); });
 qs('#shuffleTrends').addEventListener('click', ()=> { TRENDING = TRENDING.sort(()=>Math.random()-0.5); renderTrending(); showToast('Trends shuffled','Showing updated trending items'); });
 
-// close on Esc
+// ESC closes modals
 document.addEventListener('keydown', (e)=> { if(e.key==='Escape'){ closeModal(); closeContact(); } });
 
-// initial renders (so content is available to assistive tech even if welcome is visible)
+// initial render for accessibility
 renderChannels();
 renderTrending();
