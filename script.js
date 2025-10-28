@@ -378,3 +378,64 @@ document.addEventListener('keydown', (e)=> { if(e.key==='Escape'){ closeModal();
 // initial render for accessibility
 renderChannels();
 renderTrending();
+
+
+// ---------- STORY MODE ----------
+const storyOverlay = document.getElementById('storyOverlay');
+const storyTitle = document.getElementById('storyTitle');
+const storyContent = document.getElementById('storyContent');
+const storyImage = document.getElementById('storyImage');
+const prevStory = document.getElementById('prevStory');
+const nextStory = document.getElementById('nextStory');
+const closeStory = document.getElementById('closeStory');
+
+let stories = [];
+let currentStory = 0;
+
+async function loadStories() {
+  const res = await fetch('stories.json');
+  stories = await res.json();
+}
+
+function showStory(index) {
+  if (index < 0 || index >= stories.length) return;
+  const s = stories[index];
+  storyTitle.textContent = s.title;
+  storyImage.src = s.image;
+  storyContent.innerHTML = '';
+  storyOverlay.setAttribute('aria-hidden', 'false');
+  typeWriter(s.content);
+  currentStory = index;
+}
+
+function typeWriter(lines) {
+  let i = 0;
+  let text = '';
+  storyContent.innerHTML = '';
+  const all = lines.join('\n\n');
+  function type() {
+    if (i < all.length) {
+      text += all.charAt(i);
+      storyContent.textContent = text;
+      i++;
+      setTimeout(type, 25);
+    }
+  }
+  type();
+}
+
+// Navigation
+prevStory.onclick = () => showStory(currentStory - 1);
+nextStory.onclick = () => showStory(currentStory + 1);
+closeStory.onclick = () => storyOverlay.setAttribute('aria-hidden', 'true');
+
+// Launch Story Mode from “Silent Author” card
+document.addEventListener('DOMContentLoaded', async () => {
+  await loadStories();
+  document.querySelectorAll('.card').forEach(card => {
+    if (card.textContent.includes('Silent Author')) {
+      card.addEventListener('click', () => showStory(0));
+    }
+  });
+});
+
