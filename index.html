@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Amir Foundation</title>
 
-  <!-- Blue favicon -->
+  <!-- Blue favicon (placeholder) -->
   <link rel="icon" type="image/png" href="assets/favicon.ico">
 
   <!-- Stylesheet -->
@@ -21,7 +21,7 @@
   <!-- Header / nav -->
   <header>
     <div class="logo" aria-hidden="true">
-      <img src="assets/favicon.ico" alt="Amir logo">
+      <img src="assets/DSC_0287 (1).jpg" alt="Amir logo">
     </div>
     <div class="brand">
       <div class="title">Amir Foundation</div>
@@ -39,7 +39,7 @@
   <div id="welcomeScreen" role="dialog" aria-modal="true" aria-label="Welcome to Amir Foundation">
     <div class="welcome-card" role="document">
       <div class="avatar">
-        <img src="assets/DSC_00287 (1).jpg" alt="Amir profile">
+        <img src="assets/DSC_0287 (1).jpg" alt="Amir profile">
       </div>
       <h1>Welcome To Amir Foundation</h1>
       <p>We Rise Together, Hand by hand, Brotherhood to Sisterhood, Above all, we stay Together.</p>
@@ -50,12 +50,12 @@
     </div>
   </div>
 
-  <!-- Main content -->
+  <!-- Main content (hidden until welcome closes) -->
   <main id="main" aria-live="polite">
     <section class="hero">
       <div>
         <div class="title">Amir Foundation Channels</div>
-        <div class="subtitle">Explore stories, laughs, motivation, campus updates, and feelings.</div>
+        <div class="subtitle">Explore stories, laughs, motivation, campus updates and feelings.</div>
       </div>
     </section>
 
@@ -63,84 +63,17 @@
       <!-- Channels -->
       <section class="channels" aria-labelledby="channelsTitle">
         <h2 id="channelsTitle">WhatsApp Channels</h2>
-        <div class="cards" id="cards">
-
-          <!-- Channel 1 -->
-          <div class="card glass">
-            <img src="assets/SA.jpg" alt="Silent Author">
-            <div class="card-info">
-              <h3>Silent Author</h3>
-              <p>Where I tell your story in Pen, my crying pen.</p>
-            </div>
-          </div>
-
-          <!-- Channel 2 -->
-          <div class="card glass">
-            <img src="assets/MOT.jpg" alt="Motivational & Inspiration">
-            <div class="card-info">
-              <h3>Motivational & Inspiration</h3>
-              <p>Go hard or go home.</p>
-            </div>
-          </div>
-
-          <!-- Channel 3 -->
-          <div class="card glass">
-            <img src="assets/FUNNY.jpg" alt="Funny Chats">
-            <div class="card-info">
-              <h3>Funny Chats</h3>
-              <p>Hilarious responses, laugh with us.</p>
-            </div>
-          </div>
-
-          <!-- Channel 4 -->
-          <div class="card glass">
-            <img src="assets/MGCE.jpg" alt="Maseno Girlchild Empowerment">
-            <div class="card-info">
-              <h3>Maseno Girlchild Empowerment</h3>
-              <p>If not ladies, who else?</p>
-            </div>
-          </div>
-
-          <!-- Channel 5 -->
-          <div class="card glass">
-            <img src="assets/NOT NASTY.jpg" alt="Not Sassy, Just Classy">
-            <div class="card-info">
-              <h3>Not Sassy, Just Classy</h3>
-              <p>Story za jaba reloaded.</p>
-            </div>
-          </div>
-
-          <!-- Channel 6 -->
-          <div class="card glass">
-            <img src="assets/channel6.jpg" alt="Maseno University">
-            <div class="card-info">
-              <h3>Maseno University</h3>
-              <p>All updates from our University.</p>
-            </div>
-          </div>
-
-          <!-- Channel 7 -->
-          <div class="card glass">
-            <img src="assets/THESE.jpg" alt="These Feelings">
-            <div class="card-info">
-              <h3>These Feelings</h3>
-              <p>Expressing my heart in wild form — hating and loving love.</p>
-            </div>
-          </div>
-        </div>
+        <div class="cards" id="cards"></div>
       </section>
 
-      <!-- Trending -->
+      <!-- Trending & quick actions -->
       <aside class="side" aria-labelledby="trendingTitle">
-        <div class="trending glass" id="trendingBox">
+        <div class="trending" id="trendingBox">
           <h3 id="trendingTitle">What's Trending</h3>
-          <div class="trend-list" id="trendList" role="list">
-            <p>Loading latest posts...</p>
-          </div>
+          <div class="trend-list" id="trendList" role="list"></div>
         </div>
 
-        <!-- Quick Actions -->
-        <div class="trending glass">
+        <div class="trending">
           <h3>Quick Actions</h3>
           <div class="quick-actions">
             <button class="btn join" id="openAll">Open All Channels</button>
@@ -154,9 +87,29 @@
     <footer>© <span id="year"></span> Amir Foundation • We Rise Together</footer>
   </main>
 
-  <!-- Contact Modal -->
+  <!-- Channel modal -->
+  <div class="modal-backdrop" id="channelModal" aria-hidden="true">
+    <div class="modal" role="dialog" aria-modal="true" aria-label="Channel details">
+      <div class="modal-header">
+        <div class="modal-left">
+          <div class="modal-thumb"><img id="modalImg" src="" alt=""></div>
+        </div>
+        <div class="modal-center">
+          <div class="modal-title" id="modalTitle">Channel Title</div>
+          <div class="card-tag" id="modalTag">Tagline</div>
+        </div>
+        <div class="modal-actions">
+          <button class="btn" id="modalClose">Close</button>
+          <a id="modalJoin" class="btn join" href="#" target="_blank" rel="noopener">Join on WhatsApp</a>
+        </div>
+      </div>
+      <div class="modal-body" id="modalBody"></div>
+    </div>
+  </div>
+
+  <!-- Contact modal -->
   <div class="contact-backdrop" id="contactModal" aria-hidden="true">
-    <div class="contact-card glass" role="dialog" aria-modal="true" aria-label="Contact Amir">
+    <div class="contact-card" role="dialog" aria-modal="true" aria-label="Contact Amir">
       <button class="contact-close" id="contactClose" aria-label="Close contact">✕</button>
       <h3>Contact Amir</h3>
       <input class="input" id="contactName" placeholder="Your name" />
