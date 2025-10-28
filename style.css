@@ -10,6 +10,7 @@
   --white: #ffffff;
 }
 
+/* resets */
 *{box-sizing:border-box;margin:0;padding:0}
 html,body{height:100%}
 body{
@@ -137,5 +138,5 @@ footer{ margin-top:22px; text-align:center; color:var(--muted); padding-bottom:4
   .contact-card{ width:90% }
 }
 
-/* Focus */
+/* focus */
 :focus{ outline: 3px solid rgba(255,255,255,0.06); outline-offset:3px; border-radius:8px }
