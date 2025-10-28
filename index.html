@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Amir Foundation — Channels & Trends</title>
+  <title>Amir Foundation — Cosmic Edition</title>
 
   <!-- Blue favicon (placeholder) -->
   <link rel="icon" type="image/png" href="https://via.placeholder.com/64x64/007BFF/FFFFFF?text=AF">
@@ -11,14 +11,14 @@
   <!-- Stylesheet -->
   <link rel="stylesheet" href="style.css">
 
-  <!-- Fonts -->
+  <!-- Font -->
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-  <!-- Canvas for bursting particle/blob background -->
+  <!-- Canvas for cosmic particle network -->
   <canvas id="bgCanvas" aria-hidden="true"></canvas>
 
-  <!-- Header / navigation -->
+  <!-- Header / nav -->
   <header>
     <div class="logo" aria-hidden="true">
       <img src="https://picsum.photos/seed/amirlogo/200/200" alt="Amir logo">
@@ -35,7 +35,7 @@
     </nav>
   </header>
 
-  <!-- Welcome screen (centered) -->
+  <!-- Welcome overlay -->
   <div id="welcomeScreen" role="dialog" aria-modal="true" aria-label="Welcome to Amir Foundation">
     <div class="welcome-card" role="document">
       <div class="avatar">
@@ -50,7 +50,7 @@
     </div>
   </div>
 
-  <!-- Main content (hidden until Enter) -->
+  <!-- Main content (hidden until welcome closes) -->
   <main id="main" aria-live="polite">
     <section class="hero">
       <div>
@@ -120,7 +120,6 @@
     </div>
   </div>
 
-  <!-- Script -->
   <script src="script.js"></script>
 </body>
 </html>
