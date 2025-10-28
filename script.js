@@ -5,7 +5,7 @@
 
 // ---------- Data ----------
 const CHANNELS = [
-  { id: 'silent', title:'Silent Author', tagline:'Where I tell your story in Pen, my crying pen', imgSeed:'writing', link:'https://chat.whatsapp.com/YOUR_INVITE_1' },
+  { id: 'silent', title:'Silent Author', tagline:'Where I tell your story in Pen, my crying pen', imgSeed:'writing', link:'https://whatsapp.com/channel/0029VabdMbW2kNFrX96GjU0X' },
   { id: 'motivate', title:'Motivational & Inspiration', tagline:'Go hard or Go home', imgSeed:'motivation', link:'https://chat.whatsapp.com/YOUR_INVITE_2' },
   { id: 'funny', title:'Funny Chats', tagline:'Hilarious Responses, Laugh with us', imgSeed:'funny', link:'https://chat.whatsapp.com/YOUR_INVITE_3' },
   { id: 'girlchild', title:'Maseno Girlchild empowerment', tagline:'If not Ladies, who else', imgSeed:'girlchild', link:'https://chat.whatsapp.com/YOUR_INVITE_4' },
