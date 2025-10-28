@@ -1,0 +1,22 @@
+[
+  {
+    "id": 1,
+    "title": "Episode 1 – When Silence Spoke",
+    "image": "assets/SA.jpg",
+    "content": [
+      "It started on a rainy Maseno morning.",
+      "The ink on my desk had dried, but the memories hadn’t.",
+      "I told myself — maybe words can heal after all."
+    ]
+  },
+  {
+    "id": 2,
+    "title": "Episode 2 – Letters I Never Sent",
+    "image": "assets/SA.jpg",
+    "content": [
+      "She left a note on the bus seat.",
+      "No name, no number. Just emotions folded inside paper.",
+      "My pen cried again that night."
+    ]
+  }
+]
