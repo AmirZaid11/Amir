@@ -252,7 +252,7 @@ function renderChannels(){
   const cardsEl = document.getElementById('cards');
   cardsEl.innerHTML = '';
   CHANNELS.forEach((c,i) => {
-    const img = `https://picsum.photos/seed/${encodeURIComponent(c.imgSeed)}${i}/900/600`;
+      const img = c.img;
     const card = document.createElement('article'); card.className='card'; card.tabIndex=0;
     card.innerHTML = `
       <img class="card-img" src="${img}" alt="${c.title}">
