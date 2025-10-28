@@ -4,9 +4,6 @@
 */
 
 // ---------- Data ----------
-// =========================
-// CHANNELS (edit as needed)
-// =========================
 const CHANNELS = [
   { id: 'silent', title:'Silent Author', tagline:'Where I tell your story in Pen, my crying pen', imgSeed:'writing', link:'https://chat.whatsapp.com/YOUR_INVITE_1' },
   { id: 'motivate', title:'Motivational & Inspiration', tagline:'Go hard or Go home', imgSeed:'motivation', link:'https://chat.whatsapp.com/YOUR_INVITE_2' },
@@ -16,24 +13,6 @@ const CHANNELS = [
   { id: 'maseno', title:'Maseno University', tagline:'All updates From our University', imgSeed:'campus', link:'https://chat.whatsapp.com/YOUR_INVITE_6' },
   { id: 'feel', title:'These Feelings', tagline:'Expressing My Heart in wild form', imgSeed:'feelings', link:'https://chat.whatsapp.com/YOUR_INVITE_7' }
 ];
-
-// Render channels dynamically
-const cardsContainer = document.getElementById("cards");
-
-channels.forEach(ch => {
-  const card = document.createElement("div");
-  card.className = "card";
-  card.innerHTML = `
-    <div class="card-img"><img src="${ch.img}" alt="${ch.title}"></div>
-    <div class="card-body">
-      <h4>${ch.title}</h4>
-      <p>${ch.tagline}</p>
-      <a href="${ch.link}" target="_blank" rel="noopener" class="btn join">Join Channel</a>
-    </div>
-  `;
-  cardsContainer.appendChild(card);
-});
-
 
 const MOCK_POSTS = {
   silent: [{ title:'Episode 1: After the goodbye', excerpt:'I write with a pen that cries, telling the story of him...', time:'2025-10-17' }],
