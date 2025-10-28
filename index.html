@@ -1,189 +1,32 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Amir Foundation — Burst Edition</title>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
-<style>
-  :root{
-    --bg-dark: #071021;
-    --muted: rgba(255,255,255,0.78);
-    --card-radius: 14px;
-    --glass-border: rgba(255,255,255,0.06);
-    --accent1: #ff6b6b;
-    --accent2: #ffd86b;
-    --accent3: #7b61ff;
-    --accent4: #34d399;
-  }
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Amir Foundation — Channels & Trends</title>
 
-  *{box-sizing:border-box;margin:0;padding:0}
-  html,body{height:100%}
-  body{
-    font-family:"Poppins",system-ui,-apple-system,Segoe UI,Roboto,Arial;
-    background:var(--bg-dark);
-    color:#fff;
-    min-height:100vh;
-    overflow-x:hidden;
-    -webkit-font-smoothing:antialiased;
-    -moz-osx-font-smoothing:grayscale;
-  }
+  <!-- Blue favicon (placeholder) -->
+  <link rel="icon" type="image/png" href="https://via.placeholder.com/64x64/007BFF/FFFFFF?text=AF">
 
-  /* ===== BURSTING BLOBS BACKGROUND =====
-     - continuous animated colorful blobs
-  */
-  .blobs {
-    position:fixed; inset:0; z-index:-10; pointer-events:none; overflow:hidden;
-    background: radial-gradient(ellipse at top left, rgba(0,0,0,0.02), rgba(0,0,0,0.02));
-  }
-  .blob {
-    position:absolute;
-    width:420px;
-    height:420px;
-    border-radius:50%;
-    filter: blur(60px) saturate(130%);
-    opacity:0.85;
-    mix-blend-mode: screen;
-    transform: translate3d(0,0,0);
-    animation: floatBubble linear infinite;
-    will-change: transform, opacity;
-  }
-  /* blobs colors & different durations */
-  .b1{ background: radial-gradient(circle at 30% 30%, rgba(255,107,107,0.95), rgba(255,107,107,0.6) 40%, transparent 60%); left:-8%; top:5%; animation-duration:18s;}
-  .b2{ background: radial-gradient(circle at 40% 30%, rgba(255,216,107,0.95), rgba(255,216,107,0.6) 40%, transparent 60%); right:-6%; top:20%; animation-duration:22s;}
-  .b3{ background: radial-gradient(circle at 20% 20%, rgba(123,97,255,0.95), rgba(123,97,255,0.6) 40%, transparent 60%); left:20%; bottom:-12%; animation-duration:20s;}
-  .b4{ background: radial-gradient(circle at 60% 40%, rgba(52,211,153,0.95), rgba(52,211,153,0.55) 40%, transparent 60%); right:14%; bottom:-8%; animation-duration:24s;}
-  .b5{ background: radial-gradient(circle at 50% 40%, rgba(255,90,145,0.92), rgba(255,152,102,0.55) 40%, transparent 60%); left:50%; top:10%; animation-duration:26s; opacity:0.65}
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="style.css">
 
-  @keyframes floatBubble {
-    0% { transform: translateY(0) scale(0.95) rotate(0deg); opacity:0.95 }
-    25% { transform: translateY(-20px) scale(1.05) rotate(8deg); opacity:1 }
-    50% { transform: translateY(6px) scale(1) rotate(-6deg); opacity:0.9 }
-    75% { transform: translateY(-12px) scale(1.03) rotate(4deg); opacity:1 }
-    100% { transform: translateY(0) scale(0.96) rotate(0deg); opacity:0.95 }
-  }
-
-  /* NAV */
-  header {
-    position:sticky; top:0; z-index:50;
-    display:flex; align-items:center; gap:14px; padding:14px 18px;
-    background: linear-gradient(180deg, rgba(7,16,33,0.45), rgba(7,16,33,0.25));
-    backdrop-filter: blur(8px) saturate(1.05);
-    border-bottom:1px solid rgba(255,255,255,0.02);
-  }
-  .logo { width:56px;height:56px;border-radius:12px;overflow:hidden; border:1px solid var(--glass-border); display:grid; place-items:center; background:rgba(255,255,255,0.02) }
-  .brand{ display:flex; flex-direction:column }
-  .brand .title{ font-weight:700; font-size:16px }
-  .brand .tag{ font-size:12px; color:var(--muted) }
-  nav { margin-left:auto; display:flex; gap:8px; align-items:center }
-  .nav-btn { background:transparent;border:1px solid rgba(255,255,255,0.04);padding:8px 12px;border-radius:10px;color:var(--muted);cursor:pointer }
-  .nav-btn.strong{ background:linear-gradient(90deg,var(--accent4),var(--accent3)); color:#071021; border:none }
-
-  /* WELCOME SCREEN (center card, full-screen) */
-  #welcomeScreen {
-    position:fixed; inset:0; z-index:200; display:flex; align-items:center; justify-content:center;
-    background:linear-gradient(180deg, rgba(2,6,23,0.95), rgba(2,6,23,0.9));
-  }
-  .welcome-card {
-    width:360px; max-width:94%; padding:26px; border-radius:18px;
-    background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.02));
-    border:1px solid rgba(255,255,255,0.06);
-    backdrop-filter: blur(14px) saturate(1.1);
-    text-align:center; box-shadow:0 18px 60px rgba(0,0,0,0.6);
-    animation: popIn .45s cubic-bezier(.2,.9,.2,1);
-  }
-  @keyframes popIn { from{ transform:scale(.86); opacity:0 } to{ transform:none; opacity:1 } }
-  .avatar { width:110px;height:110px;border-radius:999px;margin:0 auto 12px;border:5px solid rgba(255,255,255,0.06); overflow:hidden; background:linear-gradient(135deg,rgba(255,255,255,0.02),rgba(255,255,255,0.01)) }
-  .avatar img{ width:100%;height:100%;object-fit:cover }
-  .welcome-card h1{ font-size:20px; margin-bottom:6px }
-  .welcome-card p{ color:var(--muted); font-size:13px; margin-bottom:12px; line-height:1.35 }
-  .bio { margin-top:8px; padding:8px 12px; display:inline-block; border-radius:10px; background: rgba(255,255,255,0.02); color:var(--muted); font-weight:600 }
-  .enter-btn { margin-top:14px; padding:10px 18px; border-radius:10px;border:none; font-weight:700; cursor:pointer; background:linear-gradient(90deg,var(--accent4),var(--accent3)); color:#071021 }
-
-  /* MAIN (hidden until enter) */
-  #main { display:none; padding:22px; max-width:1200px; margin:0 auto 60px; }
-
-  .hero { display:flex; gap:16px; align-items:center; margin-bottom:18px }
-  .hero .title { font-size:22px; font-weight:700 }
-  .hero .subtitle { color:var(--muted); margin-top:6px; font-size:13px }
-
-  .grid-wrap { display:grid; grid-template-columns: 1fr 360px; gap:18px; align-items:start }
-  @media (max-width:1000px){ .grid-wrap{ grid-template-columns: 1fr; } }
-
-  /* Channels */
-  .channels { background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01)); border-radius:14px; padding:14px; border:1px solid var(--glass-border); min-height:420px }
-  .channels h2{ font-size:18px; margin-bottom:10px }
-  .cards { display:grid; grid-template-columns: repeat(auto-fill, minmax(220px,1fr)); gap:12px }
-  .card {
-    border-radius:12px; overflow:hidden; background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
-    border:1px solid rgba(255,255,255,0.04); box-shadow:0 12px 36px rgba(0,0,0,0.45);
-    transition: transform .28s cubic-bezier(.2,.9,.2,1), box-shadow .28s;
-    display:flex; flex-direction:column; min-height:250px;
-  }
-  .card:hover{ transform:translateY(-8px) scale(1.01); box-shadow:0 28px 70px rgba(0,0,0,0.6) }
-  .card-img{ height:130px; width:100%; object-fit:cover; display:block }
-  .card-body{ padding:12px; display:flex; flex-direction:column; gap:8px; flex:1 }
-  .card-title{ font-weight:700 }
-  .card-tag{ font-size:12px; color:var(--muted) }
-  .card-desc{ font-size:13px; color:rgba(255,255,255,0.92); flex:1; margin-top:6px }
-  .card-actions{ display:flex; gap:8px; margin-top:8px }
-  .btn { padding:8px 10px; border-radius:8px; border:1px solid rgba(255,255,255,0.04); background:transparent; color:var(--muted); cursor:pointer; font-weight:600 }
-  .btn.join { background:linear-gradient(90deg,var(--accent1),var(--accent3)); color:#071021; border:none }
-
-  /* TREND / SIDE */
-  .side { display:flex; flex-direction:column; gap:12px }
-  .trending { padding:12px; border-radius:12px; border:1px solid var(--glass-border); background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01)); min-height:180px }
-  .trending h3{ margin-bottom:10px }
-  .trend-list{ display:flex; flex-direction:column; gap:8px; max-height:340px; overflow:auto; padding-right:6px }
-  .trend-item{ display:flex; gap:10px; align-items:flex-start; padding:8px; border-radius:8px; transition: background .14s; cursor:pointer }
-  .trend-item:hover{ background: rgba(255,255,255,0.02) }
-  .trend-dot{ width:44px;height:44px;border-radius:8px;display:grid;place-items:center;font-weight:700;background:linear-gradient(135deg,var(--accent4),var(--accent3)) }
-  .trend-info .t-title{ font-weight:700 }
-  .trend-info .t-src{ font-size:12px;color:var(--muted); margin-top:6px }
-
-  /* Channel modal */
-  .modal-backdrop { position:fixed; inset:0; background:rgba(2,6,23,0.7); display:none; align-items:center; justify-content:center; z-index:300; padding:18px }
-  .modal { width:min(920px,95%); max-height:90vh; overflow:auto; border-radius:12px; background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01)); padding:18px; border:1px solid rgba(255,255,255,0.06); backdrop-filter: blur(12px) }
-  .modal-header{ display:flex; align-items:center; gap:12px; margin-bottom:12px }
-  .modal-title{ font-size:18px; font-weight:700 }
-  .modal-body{ display:flex; gap:12px; flex-direction:column }
-  .post { padding:10px; border-radius:10px; background: rgba(255,255,255,0.02); display:flex; gap:12px; align-items:flex-start }
-
-  /* Contact modal */
-  .contact-backdrop{ position:fixed; inset:0; display:none; align-items:center; justify-content:center; z-index:310; background:rgba(2,6,23,0.7) }
-  .contact-card{ width:360px; padding:16px; border-radius:12px; background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01)); border:1px solid rgba(255,255,255,0.06); position:relative }
-  .input, textarea{ width:100%; padding:10px; margin-top:8px; border-radius:8px; border:none; background: rgba(255,255,255,0.03); color:#fff }
-  .send-btn{ margin-top:12px; padding:10px;border-radius:8px;border:none;background:linear-gradient(90deg,var(--accent4),var(--accent3)); color:#071021; font-weight:700;cursor:pointer }
-  .contact-close { position:absolute; top:10px; right:10px; background:transparent; border:none; color:var(--muted); font-size:20px; cursor:pointer }
-
-  footer{ margin-top:22px; text-align:center; color:var(--muted); padding-bottom:40px }
-
-  @media (max-width:600px){
-    .hero{flex-direction:column; align-items:flex-start}
-    header{ padding:12px }
-    .nav-btn{ padding:6px 10px; font-size:13px }
-    .card-img{ height:120px }
-    .contact-card{ width:90% }
-  }
-
-  :focus{ outline: 3px solid rgba(255,255,255,0.06); outline-offset:3px; border-radius:8px }
-</style>
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
+  <!-- Canvas for bursting particle/blob background -->
+  <canvas id="bgCanvas" aria-hidden="true"></canvas>
 
-  <!-- BLobs container -->
-  <div class="blobs" id="blobs">
-    <div class="blob b1"></div>
-    <div class="blob b2"></div>
-    <div class="blob b3"></div>
-    <div class="blob b4"></div>
-    <div class="blob b5"></div>
-  </div>
-
-  <!-- Header -->
+  <!-- Header / navigation -->
   <header>
-    <div class="logo" aria-hidden="true"><img src="https://picsum.photos/seed/amirlogo/200/200" alt="Amir" style="width:100%;height:100%;object-fit:cover"></div>
-    <div class="brand"><div class="title">Amir Foundation</div><div class="tag">We Rise Together</div></div>
+    <div class="logo" aria-hidden="true">
+      <img src="https://picsum.photos/seed/amirlogo/200/200" alt="Amir logo">
+    </div>
+    <div class="brand">
+      <div class="title">Amir Foundation</div>
+      <div class="tag">We Rise Together</div>
+    </div>
     <nav>
       <button class="nav-btn" id="navHome">Home</button>
       <button class="nav-btn" id="navChannels">Channels</button>
@@ -192,34 +35,38 @@
     </nav>
   </header>
 
-  <!-- Welcome screen -->
-  <div id="welcomeScreen" role="dialog" aria-modal="true" aria-label="Welcome">
+  <!-- Welcome screen (centered) -->
+  <div id="welcomeScreen" role="dialog" aria-modal="true" aria-label="Welcome to Amir Foundation">
     <div class="welcome-card" role="document">
-      <div class="avatar"><img src="https://picsum.photos/seed/amirprofile/400/400" alt="Amir profile"></div>
+      <div class="avatar">
+        <img src="https://picsum.photos/seed/amirprofile/400/400" alt="Amir profile">
+      </div>
       <h1>Welcome To Amir Foundation</h1>
       <p>We Rise Together, Hand by hand, Brotherhood to Sisterhood, Above all, we stay Together.</p>
       <div class="bio">Love is Kind. Love is Patient.</div>
-      <div style="margin-top:16px">
+      <div class="welcome-actions">
         <button class="enter-btn" id="enterBtn">Enter Site</button>
       </div>
     </div>
   </div>
 
-  <!-- Main content -->
+  <!-- Main content (hidden until Enter) -->
   <main id="main" aria-live="polite">
     <section class="hero">
       <div>
         <div class="title">Amir Foundation Channels</div>
-        <div class="subtitle">Explore stories, laugh, learn & empower — click a channel to view recent posts.</div>
+        <div class="subtitle">Explore stories, laughs, motivation, campus updates and feelings.</div>
       </div>
     </section>
 
     <div class="grid-wrap" id="gridWrap">
+      <!-- Channels -->
       <section class="channels" aria-labelledby="channelsTitle">
         <h2 id="channelsTitle">WhatsApp Channels</h2>
         <div class="cards" id="cards"></div>
       </section>
 
+      <!-- Trending & quick actions -->
       <aside class="side" aria-labelledby="trendingTitle">
         <div class="trending" id="trendingBox">
           <h3 id="trendingTitle">What's Trending</h3>
@@ -228,7 +75,7 @@
 
         <div class="trending">
           <h3>Quick Actions</h3>
-          <div style="display:flex;flex-direction:column;gap:10px;margin-top:8px">
+          <div class="quick-actions">
             <button class="btn join" id="openAll">Open All Channels</button>
             <button class="btn" id="shuffleTrends">Shuffle Trends</button>
             <button class="btn" id="openContact">Contact Amir</button>
@@ -244,12 +91,14 @@
   <div class="modal-backdrop" id="channelModal" aria-hidden="true">
     <div class="modal" role="dialog" aria-modal="true" aria-label="Channel details">
       <div class="modal-header">
-        <div style="width:64px;height:64px;border-radius:10px;overflow:hidden;border:1px solid rgba(255,255,255,0.04)"><img id="modalImg" src="" alt="" style="width:100%;height:100%;object-fit:cover"></div>
-        <div>
+        <div class="modal-left">
+          <div class="modal-thumb"><img id="modalImg" src="" alt=""></div>
+        </div>
+        <div class="modal-center">
           <div class="modal-title" id="modalTitle">Channel Title</div>
           <div class="card-tag" id="modalTag">Tagline</div>
         </div>
-        <div style="margin-left:auto;display:flex;gap:8px;align-items:center">
+        <div class="modal-actions">
           <button class="btn" id="modalClose">Close</button>
           <a id="modalJoin" class="btn join" href="#" target="_blank" rel="noopener">Join on WhatsApp</a>
         </div>
@@ -267,212 +116,11 @@
       <input class="input" id="contactEmail" placeholder="Email (optional)" />
       <textarea id="contactMsg" class="input" rows="4" placeholder="Message"></textarea>
       <button class="send-btn" id="sendContact">Send</button>
-      <div style="margin-top:10px;font-size:13px;color:var(--muted)" id="contactStatus"></div>
+      <div class="status" id="contactStatus" aria-live="polite"></div>
     </div>
   </div>
 
-<script>
-  // ---------- Data ----------
-  const CHANNELS = [
-    { id: 'silent', title:'Silent Author', tagline:'Where I tell your story in Pen, my crying pen', imgSeed:'writing', link:'https://chat.whatsapp.com/YOUR_INVITE_1' },
-    { id: 'motivate', title:'Motivational & Inspiration', tagline:'Go hard or Go home', imgSeed:'motivation', link:'https://chat.whatsapp.com/YOUR_INVITE_2' },
-    { id: 'funny', title:'Funny Chats', tagline:'Hilarious Responses, Laugh with us', imgSeed:'funny', link:'https://chat.whatsapp.com/YOUR_INVITE_3' },
-    { id: 'girlchild', title:'Maseno Girlchild empowerment', tagline:'If not Ladies, who else', imgSeed:'girlchild', link:'https://chat.whatsapp.com/YOUR_INVITE_4' },
-    { id: 'classy', title:'Not Sassy, Just Classy', tagline:'Story Za jaba reloaded', imgSeed:'classy', link:'https://chat.whatsapp.com/YOUR_INVITE_5' },
-    { id: 'maseno', title:'Maseno University', tagline:'All updates From our University', imgSeed:'campus', link:'https://chat.whatsapp.com/YOUR_INVITE_6' },
-    { id: 'feel', title:'These Feelings', tagline:'Expressing My Heart in wild form', imgSeed:'feelings', link:'https://chat.whatsapp.com/YOUR_INVITE_7' }
-  ];
-
-  const MOCK_POSTS = {
-    silent: [
-      { title:'Episode 1: After the goodbye', excerpt:'I write with a pen that cries, telling the story of him...', time: '2025-10-17' },
-      { title:'Short story: The empty street', excerpt:'Cold winds taught me to listen to the city...', time: '2025-09-29' }
-    ],
-    motivate: [
-      { title:'Rise & Grind: Day 1', excerpt:'Small steps create mountains — start today.', time:'2025-10-10' },
-      { title:'Focus Routine', excerpt:'How I block distractions and win the day.', time:'2025-09-01' }
-    ],
-    funny: [
-      { title:'Meme drop: Monday', excerpt:'When your code runs on the first try — impossible.', time:'2025-10-20' },
-      { title:'Jokes of the week', excerpt:'A student walked into a library with sneakers...', time:'2025-10-05' }
-    ],
-    girlchild: [
-      { title:'Mentorship meetup', excerpt:'Join us this Saturday for CV building & mentorship.', time:'2025-10-12' }
-    ],
-    classy: [
-      { title:'Short: Jaba Reloaded', excerpt:'Elegance with a twist — new chapter live.', time:'2025-09-28' }
-    ],
-    maseno: [
-      { title:'Term Dates 2025', excerpt:'The senate approved new term dates for 2024-2025', time:'2025-07-14' }
-    ],
-    feel: [
-      { title:'Confession: I loved and lost', excerpt:'It was a river of reasons and quiet nights.', time:'2025-08-28' }
-    ]
-  };
-
-  let TRENDING = [
-    { title:'Episode 1: After the goodbye', channel:'Silent Author', time:'2025-10-17' },
-    { title:'Rise & Grind: Day 1', channel:'Motivational & Inspiration', time:'2025-10-10' },
-    { title:"Mentorship meetup", channel:'Maseno Girlchild empowerment', time:'2025-10-12' },
-    { title:'Meme drop: Monday', channel:'Funny Chats', time:'2025-10-20' }
-  ];
-
-  // ---------- Utilities ----------
-  const qs = s => document.querySelector(s);
-  const qsa = s => Array.from(document.querySelectorAll(s));
-  const cardsEl = qs('#cards');
-  const trendListEl = qs('#trendList');
-  const modalBackdrop = qs('#channelModal');
-  const modalTitle = qs('#modalTitle');
-  const modalTag = qs('#modalTag');
-  const modalImg = qs('#modalImg');
-  const modalBody = qs('#modalBody');
-  const modalJoin = qs('#modalJoin');
-  const modalClose = qs('#modalClose');
-  const contactModal = qs('#contactModal');
-  const contactStatus = qs('#contactStatus');
-  const burstEl = qs('#blobs');
-  const welcome = qs('#welcomeScreen');
-
-  // set year
-  qs('#year').textContent = new Date().getFullYear();
-
-  // ---------- Render functions ----------
-  function renderChannels(){
-    cardsEl.innerHTML = '';
-    CHANNELS.forEach((c,i) => {
-      const imgUrl = `https://picsum.photos/seed/${encodeURIComponent(c.imgSeed)}${i}/900/600`;
-      const card = document.createElement('article'); card.className='card'; card.tabIndex=0;
-      card.innerHTML = `
-        <img class="card-img" src="${imgUrl}" alt="${c.title}">
-        <div class="card-body">
-          <div class="card-title">${c.title}</div>
-          <div class="card-tag">${c.tagline}</div>
-          <div class="card-desc">${(MOCK_POSTS[c.id] && MOCK_POSTS[c.id][0]) ? MOCK_POSTS[c.id][0].excerpt : c.tagline}</div>
-          <div class="card-actions">
-            <button class="btn join" data-id="${c.id}">Open Channel</button>
-            <button class="btn copy" data-link="${c.link}">Copy Link</button>
-          </div>
-        </div>`;
-      card.querySelector('.btn.join').addEventListener('click', (e)=>{ e.stopPropagation(); openChannelModal(c.id); });
-      card.querySelector('.btn.copy').addEventListener('click', async (e)=>{ e.stopPropagation(); try { await navigator.clipboard.writeText(c.link); showToast('Link copied', `${c.title} link copied.`);} catch { showToast('Copy failed','Open the link manually.'); }});
-      card.addEventListener('click', ()=> openChannelModal(c.id));
-      card.addEventListener('keydown', (ev)=> { if(ev.key==='Enter') openChannelModal(c.id) });
-      cardsEl.appendChild(card);
-    });
-  }
-
-  function renderTrending(){
-    trendListEl.innerHTML = '';
-    TRENDING.forEach((t,idx) => {
-      const item = document.createElement('div'); item.className='trend-item';
-      item.innerHTML = `<div class="trend-dot">${idx+1}</div>
-        <div class="trend-info"><div class="t-title">${t.title}</div><div class="t-src">${t.channel} • ${t.time}</div></div>`;
-      item.addEventListener('click', ()=> showToast(t.title, `From ${t.channel}`));
-      trendListEl.appendChild(item);
-    });
-  }
-
-  function pushRandomTrend(){
-    const all = Object.keys(MOCK_POSTS).flatMap(k => (MOCK_POSTS[k]||[]).map(p => ({...p, channel: CHANNELS.find(c=>c.id===k)?.title || k})));
-    if(!all.length) return;
-    const pick = all[Math.floor(Math.random()*all.length)];
-    TRENDING.unshift({ title: pick.title, channel: pick.channel, time: pick.time || new Date().toISOString().slice(0,10) });
-    if(TRENDING.length>8) TRENDING.pop();
-    renderTrending();
-    showToast('New trending', `${pick.title} • ${pick.channel}`);
-  }
-
-  // ---------- Channel modal ----------
-  function openChannelModal(id){
-    const channel = CHANNELS.find(c=>c.id===id);
-    if(!channel) return;
-    modalTitle.textContent = channel.title;
-    modalTag.textContent = channel.tagline;
-    modalImg.src = `https://picsum.photos/seed/${encodeURIComponent(channel.imgSeed + 'modal')}/1200/800`;
-    modalJoin.href = channel.link;
-    modalBody.innerHTML = '';
-    const posts = MOCK_POSTS[id] || [];
-    if(!posts.length) modalBody.innerHTML = `<div style="color:var(--muted)">No recent posts yet.</div>`;
-    else posts.forEach(p => {
-      const pEl = document.createElement('div'); pEl.className='post';
-      pEl.innerHTML = `<div style="width:74px;height:74px;border-radius:8px;overflow:hidden"><img src="https://picsum.photos/seed/${encodeURIComponent(channel.imgSeed + p.title)}/200/140" alt="" style="width:100%;height:100%;object-fit:cover"></div>
-        <div style="flex:1"><div style="font-weight:700">${p.title}</div><div class="meta" style="font-size:12px;color:var(--muted)">${p.time} • ${channel.title}</div><div style="margin-top:8px;color:var(--muted)">${p.excerpt}</div><div style="margin-top:8px"><button class="btn" onclick="showToast('Open Post','This would open the full post (mock)')">Read More</button></div></div>`;
-      modalBody.appendChild(pEl);
-    });
-    modalBackdrop.style.display='flex';
-    modalBackdrop.setAttribute('aria-hidden','false');
-    modalClose.focus();
-  }
-
-  function closeModal(){
-    modalBackdrop.style.display='none';
-    modalBackdrop.setAttribute('aria-hidden','true');
-  }
-
-  modalClose.addEventListener('click', closeModal);
-  modalBackdrop.addEventListener('click', (e)=> { if(e.target===modalBackdrop) closeModal(); });
-
-  // ---------- Contact modal ----------
-  function openContactModal(){
-    contactModal.style.display='flex';
-    contactModal.setAttribute('aria-hidden','false');
-    qs('#contactName').focus();
-  }
-  function closeContact(){
-    contactModal.style.display='none';
-    contactModal.setAttribute('aria-hidden','true');
-    contactStatus.textContent='';
-  }
-  qs('#openContact').addEventListener('click', openContactModal);
-  qs('#navContact').addEventListener('click', openContactModal);
-  qs('#contactClose').addEventListener('click', closeContact);
-  contactModal.addEventListener('click', (e)=> { if(e.target===contactModal) closeContact(); });
-
-  qs('#sendContact').addEventListener('click', () => {
-    const name = qs('#contactName').value.trim();
-    const msg = qs('#contactMsg').value.trim();
-    if(!name || !msg){ contactStatus.textContent='Please provide name and message.'; return; }
-    contactStatus.textContent='Sending...';
-    setTimeout(()=> { contactStatus.textContent='Message sent — Amir will get back to you.'; qs('#contactName').value=''; qs('#contactEmail').value=''; qs('#contactMsg').value=''; setTimeout(closeContact,1200); }, 900);
-  });
-
-  // ---------- Toast ----------
-  function showToast(title, body, timeout=5200){
-    const t = document.createElement('div'); t.style.position='fixed'; t.style.right='18px'; t.style.bottom='18px'; t.style.zIndex=9999;
-    t.style.background='linear-gradient(90deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01))'; t.style.padding='12px'; t.style.borderRadius='10px'; t.style.boxShadow='0 20px 60px rgba(0,0,0,0.6)';
-    t.innerHTML = `<div style="font-weight:700;margin-bottom:6px">${title}</div><div style="color:var(--muted);font-size:13px">${body}</div>`;
-    document.body.appendChild(t);
-    setTimeout(()=> t.style.opacity='0', timeout-400);
-    setTimeout(()=> t.remove(), timeout);
-  }
-
-  // ---------- Welcome flow ----------
-  qs('#enterBtn').addEventListener('click', () => {
-    welcome.style.display='none';
-    qs('#main').style.display='block';
-    // activate blobs (they are continuous already). small subtle zoom for effect
-    burstEl.classList.add('active');
-    renderChannels();
-    renderTrending();
-    setInterval(pushRandomTrend, 14000);
-  });
-
-  // nav helpers
-  qs('#navChannels').addEventListener('click', ()=> qs('#cards').scrollIntoView({behavior:'smooth'}));
-  qs('#navTrending').addEventListener('click', ()=> qs('#trendList').scrollIntoView({behavior:'smooth'}));
-  qs('#navHome').addEventListener('click', ()=> window.scrollTo({top:0,behavior:'smooth'}));
-
-  qs('#openAll').addEventListener('click', ()=> { showToast('Opening channels','Each link will open in a new tab.'); CHANNELS.forEach(c=> window.open(c.link,'_blank')); });
-  qs('#shuffleTrends').addEventListener('click', ()=> { TRENDING = TRENDING.sort(()=>Math.random()-0.5); renderTrending(); showToast('Trends shuffled','Showing updated trending items'); });
-
-  // keyboard ESC closes modals
-  document.addEventListener('keydown', (e)=> { if(e.key==='Escape'){ closeModal(); closeContact(); } });
-
-  // initial render for accessibility (so screen readers have content even if welcome shown)
-  renderChannels();
-  renderTrending();
-
-</script>
+  <!-- Script -->
+  <script src="script.js"></script>
 </body>
 </html>
