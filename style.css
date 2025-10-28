@@ -140,3 +140,57 @@ footer{ margin-top:22px; text-align:center; color:var(--muted); padding-bottom:4
 
 /* focus */
 :focus{ outline: 3px solid rgba(255,255,255,0.06); outline-offset:3px; border-radius:8px }
+
+
+
+
+.story-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(10, 10, 20, 0.9);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+.story-overlay[aria-hidden="false"] {
+  display: flex;
+}
+.story-card {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(15px);
+  border-radius: 20px;
+  padding: 2rem;
+  max-width: 700px;
+  color: #fff;
+  box-shadow: 0 0 40px rgba(0,0,0,0.5);
+  text-align: center;
+}
+.story-img img {
+  width: 100%;
+  border-radius: 15px;
+  margin-bottom: 1rem;
+}
+.story-text {
+  text-align: left;
+  font-size: 1.1rem;
+  line-height: 1.7;
+  white-space: pre-wrap;
+  min-height: 150px;
+}
+.story-nav {
+  margin-top: 1rem;
+  display: flex;
+  justify-content: space-between;
+}
+.story-close {
+  position: absolute;
+  top: 15px;
+  right: 25px;
+  background: transparent;
+  border: none;
+  color: #fff;
+  font-size: 1.8rem;
+  cursor: pointer;
+}
+
