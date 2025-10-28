@@ -4,15 +4,71 @@
 */
 
 // ---------- Data ----------
-const CHANNELS = [
-  { id: 'silent', title:'Silent Author', tagline:'Where I tell your story in Pen, my crying pen', imgSeed:'writing', link:'https://chat.whatsapp.com/YOUR_INVITE_1' },
-  { id: 'motivate', title:'Motivational & Inspiration', tagline:'Go hard or Go home', imgSeed:'motivation', link:'https://chat.whatsapp.com/YOUR_INVITE_2' },
-  { id: 'funny', title:'Funny Chats', tagline:'Hilarious Responses, Laugh with us', imgSeed:'funny', link:'https://chat.whatsapp.com/YOUR_INVITE_3' },
-  { id: 'girlchild', title:'Maseno Girlchild empowerment', tagline:'If not Ladies, who else', imgSeed:'girlchild', link:'https://chat.whatsapp.com/YOUR_INVITE_4' },
-  { id: 'classy', title:'Not Sassy, Just Classy', tagline:'Story Za jaba reloaded', imgSeed:'classy', link:'https://chat.whatsapp.com/YOUR_INVITE_5' },
-  { id: 'maseno', title:'Maseno University', tagline:'All updates From our University', imgSeed:'campus', link:'https://chat.whatsapp.com/YOUR_INVITE_6' },
-  { id: 'feel', title:'These Feelings', tagline:'Expressing My Heart in wild form', imgSeed:'feelings', link:'https://chat.whatsapp.com/YOUR_INVITE_7' }
+// =========================
+// CHANNELS (edit as needed)
+// =========================
+const channels = [
+  {
+    title: "Silent Author",
+    tagline: "Where I tell your story in Pen, my crying pen.",
+    img: "assets/SA.jpg", // replace with your image
+    link: "https://whatsapp.com/channel/0029VabdMbW2kNFrX96GjU0X"
+  },
+  {
+    title: "Motivational & Inspiration",
+    tagline: "Go hard or go home.",
+    img: "assets/motivation.jpg",
+    link: "https://whatsapp.com/channel/motivation"
+  },
+  {
+    title: "Funny Chats",
+    tagline: "Hilarious responses, laugh with us.",
+    img: "assets/funny.jpg",
+    link: "https://whatsapp.com/channel/funnychats"
+  },
+  {
+    title: "Maseno Girlchild Empowerment",
+    tagline: "If not Ladies, who else?",
+    img: "assets/girlchild.jpg",
+    link: "https://whatsapp.com/channel/girlchild"
+  },
+  {
+    title: "Not Sassy, Just Classy",
+    tagline: "Story za jaba reloaded.",
+    img: "assets/classy.jpg",
+    link: "https://whatsapp.com/channel/not-sassy-just-classy"
+  },
+  {
+    title: "Maseno University",
+    tagline: "All updates from our University.",
+    img: "assets/maseno_university.jpg",
+    link: "https://whatsapp.com/channel/maseno"
+  },
+  {
+    title: "These Feelings",
+    tagline: "Expressing my heart in wild form, hating and loving love.",
+    img: "assets/feelings.jpg",
+    link: "https://whatsapp.com/channel/feelings"
+  }
 ];
+
+// Render channels dynamically
+const cardsContainer = document.getElementById("cards");
+
+channels.forEach(ch => {
+  const card = document.createElement("div");
+  card.className = "card";
+  card.innerHTML = `
+    <div class="card-img"><img src="${ch.img}" alt="${ch.title}"></div>
+    <div class="card-body">
+      <h4>${ch.title}</h4>
+      <p>${ch.tagline}</p>
+      <a href="${ch.link}" target="_blank" rel="noopener" class="btn join">Join Channel</a>
+    </div>
+  `;
+  cardsContainer.appendChild(card);
+});
+
 
 const MOCK_POSTS = {
   silent: [{ title:'Episode 1: After the goodbye', excerpt:'I write with a pen that cries, telling the story of him...', time:'2025-10-17' }],
