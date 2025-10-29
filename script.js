@@ -9,14 +9,14 @@ const CHANNELS = [
   {
     id: 'silent',
     title: 'Silent Author',
-    tagline: 'Where I tell your story in Pen, my crying pen',
+    tagline: 'Where Pen does the Talking',
     img: 'assets/SA.jpg',
     link: 'https://whatsapp.com/channel/0029VabdMbW2kNFrX96GjU0X'
   },
   {
     id: 'motivate',
-    title: 'Motivational & Inspiration',
-    tagline: 'Go hard or Go home',
+    title: 'Motivational Quotes |Inspirational Words',
+    tagline: 'Words of Wisdom. Philosophia, Words of Affirmation',
     img: 'assets/MOT.jpg',
     link: 'https://whatsapp.com/channel/0029Vb6b3bIIXnlzwhoO9s2S'
   },
@@ -44,7 +44,7 @@ const CHANNELS = [
   {
     id: 'maseno',
     title: 'Maseno University',
-    tagline: 'All updates From our University',
+    tagline: 'Official updates from Maseno University',
     img: 'assets/Screenshot 2025-10-29 070952.png',
     link: 'https://whatsapp.com/channel/0029VaF4Qeu4Y9ljNjoOdA02'
   },
