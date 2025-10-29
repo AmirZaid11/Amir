@@ -308,8 +308,24 @@ function openChannelModal(id){
   if(!posts.length) body.innerHTML = `<div style="color:var(--muted)">No recent posts yet.</div>`;
   else posts.forEach(p => {
     const pEl = document.createElement('div'); pEl.className='post';
-    pEl.innerHTML = `<div style="width:74px;height:74px;border-radius:8px;overflow:hidden"><img src="https://picsum.photos/seed/${encodeURIComponent(channel.imgSeed + p.title)}/200/140" alt="" style="width:100%;height:100%;object-fit:cover"></div>
-      <div style="flex:1"><div style="font-weight:700">${p.title}</div><div class="meta" style="font-size:12px;color:var(--muted)">${p.time} • ${channel.title}</div><div style="margin-top:8px;color:var(--muted)">${p.excerpt}</div><div style="margin-top:8px"><button class="btn" onclick="showToast('Open Post','This would open the full post (mock)')">Read More</button></div></div>`;
+    pEl.innerHTML = `
+  <div style="width:74px;height:74px;border-radius:8px;overflow:hidden">
+    <img src="${channel.img}" alt="${channel.title}" style="width:100%;height:100%;object-fit:cover">
+  </div>
+  <div style="flex:1">
+    <div style="font-weight:700">${p.title}</div>
+    <div class="meta" style="font-size:12px;color:var(--muted)">${p.time} • ${channel.title}</div>
+    <div style="margin-top:8px;color:var(--muted)">${p.excerpt}</div>
+    <div style="margin-top:8px">
+      <button class="btn read-more">Read More</button>
+    </div>
+  </div>
+`;
+
+pEl.querySelector(".read-more").addEventListener("click", () => {
+  alert("Join the channel first to read full post.");
+});
+
     body.appendChild(pEl);
   });
   modalBackdrop.style.display='flex';
