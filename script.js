@@ -251,9 +251,13 @@ yearEl.textContent = new Date().getFullYear();
 function renderChannels(){
   const cardsEl = document.getElementById('cards');
   cardsEl.innerHTML = '';
+  
   CHANNELS.forEach((c,i) => {
-      const img = c.img;
-    const card = document.createElement('article'); card.className='card'; card.tabIndex=0;
+    const img = c.img;
+    const card = document.createElement('article');
+    card.className = 'card';
+    card.tabIndex = 0;
+
     card.innerHTML = `
       <img class="card-img" src="${img}" alt="${c.title}">
       <div class="card-body">
@@ -264,24 +268,34 @@ function renderChannels(){
           <button class="btn join" data-id="${c.id}">Open Channel</button>
           <button class="btn copy" data-link="${c.link}">Copy Link</button>
         </div>
-      </div>`;
-    card.querySelector('.btn.join').addEventListener('click', (e)=>{ e.stopPropagation(); openChannelModal(c.id); });
-    card.querySelector('.btn.copy').addEventListener('click', async (e)=>{ e.stopPropagation(); try { await navigator.clipboard.writeText(c.link); showToast('Link copied', `${c.title} link copied.`);} catch { showToast('Copy failed','Open the link manually.'); }});
-    card.addEventListener('click', ()=> openChannelModal(c.id));
-    card.addEventListener('keydown', (ev)=> { if(ev.key==='Enter') openChannelModal(c.id) });
-    cardsEl.appendChild(card);
-  });
-}
+      </div>
+    `;
 
-function renderTrending(){
-  const trendListEl = document.getElementById('trendList');
-  trendListEl.innerHTML = '';
-  TRENDING.forEach((t,idx) => {
-    const it = document.createElement('div'); it.className='trend-item';
-    it.innerHTML = `<div class="trend-dot">${idx+1}</div>
-      <div class="trend-info"><div class="t-title">${t.title}</div><div class="t-src">${t.channel} • ${t.time}</div></div>`;
-    it.addEventListener('click', ()=> showToast(t.title, `From ${t.channel}`));
-    trendListEl.appendChild(it);
+    // ✅ Direct open channel on click
+    card.querySelector('.btn.join').addEventListener('click', (e) => {
+      e.stopPropagation();
+      window.open(c.link, '_blank'); // Opens WhatsApp channel directly
+    });
+
+    // ✅ Copy link button (unchanged)
+    card.querySelector('.btn.copy').addEventListener('click', async (e) => {
+      e.stopPropagation();
+      try {
+        await navigator.clipboard.writeText(c.link);
+        showToast('Link copied', `${c.title} link copied.`);
+      } catch {
+        showToast('Copy failed', 'Open the link manually.');
+      }
+    });
+
+    // Optional: click anywhere on the card also opens the channel
+    card.addEventListener('click', () => window.open(c.link, '_blank'));
+
+    card.addEventListener('keydown', (ev) => { 
+      if (ev.key === 'Enter') window.open(c.link, '_blank'); 
+    });
+
+    cardsEl.appendChild(card);
   });
 }
 
