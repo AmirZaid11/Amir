@@ -380,62 +380,73 @@ renderChannels();
 renderTrending();
 
 
-// ---------- STORY MODE ----------
-const storyOverlay = document.getElementById('storyOverlay');
-const storyTitle = document.getElementById('storyTitle');
-const storyContent = document.getElementById('storyContent');
-const storyImage = document.getElementById('storyImage');
-const prevStory = document.getElementById('prevStory');
-const nextStory = document.getElementById('nextStory');
-const closeStory = document.getElementById('closeStory');
+// --- STORY MODE LOGIC ---
+document.addEventListener("DOMContentLoaded", () => {
+  const storyOverlay = document.getElementById("storyOverlay");
+  const storyImage = document.getElementById("storyImage");
+  const storyTitle = document.getElementById("storyTitle");
+  const storyContent = document.getElementById("storyContent");
 
-let stories = [];
-let currentStory = 0;
-
-async function loadStories() {
-  const res = await fetch('stories.json');
-  stories = await res.json();
-}
-
-function showStory(index) {
-  if (index < 0 || index >= stories.length) return;
-  const s = stories[index];
-  storyTitle.textContent = s.title;
-  storyImage.src = s.image;
-  storyContent.innerHTML = '';
-  storyOverlay.setAttribute('aria-hidden', 'false');
-  typeWriter(s.content);
-  currentStory = index;
-}
-
-function typeWriter(lines) {
-  let i = 0;
-  let text = '';
-  storyContent.innerHTML = '';
-  const all = lines.join('\n\n');
-  function type() {
-    if (i < all.length) {
-      text += all.charAt(i);
-      storyContent.textContent = text;
-      i++;
-      setTimeout(type, 25);
+  const stories = [
+    {
+      img: "assets/story1.jpg",
+      title: "Welcome to Amir Foundation 🌟",
+      content: "Together we build, inspire, and lift each other."
+    },
+    {
+      img: "assets/story2.jpg",
+      title: "Unity & Love 💙",
+      content: "Brotherhood to Sisterhood, We Rise Together."
+    },
+    {
+      img: "assets/story3.jpg",
+      title: "Be the Light 🔥",
+      content: "Keep spreading positivity and kindness."
     }
-  }
-  type();
-}
+  ];
 
-// Navigation
-prevStory.onclick = () => showStory(currentStory - 1);
-nextStory.onclick = () => showStory(currentStory + 1);
-closeStory.onclick = () => storyOverlay.setAttribute('aria-hidden', 'true');
+  let index = 0;
+  const showStory = () => {
+    const s = stories[index];
+    storyImage.src = s.img;
+    storyTitle.textContent = s.title;
+    storyContent.textContent = s.content;
+  };
 
-// Launch Story Mode from “Silent Author” card
-document.addEventListener('DOMContentLoaded', async () => {
-  await loadStories();
-  document.querySelectorAll('.card').forEach(card => {
-    if (card.textContent.includes('Silent Author')) {
-      card.addEventListener('click', () => showStory(0));
-    }
+  const next = () => {
+    index = (index + 1) % stories.length;
+    showStory();
+  };
+  const prev = () => {
+    index = (index - 1 + stories.length) % stories.length;
+    showStory();
+  };
+
+  document.getElementById("nextStory").addEventListener("click", next);
+  document.getElementById("prevStory").addEventListener("click", prev);
+  document.getElementById("closeStory").addEventListener("click", () => {
+    storyOverlay.setAttribute("aria-hidden", "true");
   });
-});
 
+  // Auto-advance through stories
+  function autoAdvance() {
+    showStory();
+    storyOverlay.setAttribute("aria-hidden", "false");
+    const timer = setInterval(() => {
+      index++;
+      if (index < stories.length) showStory();
+      else {
+        clearInterval(timer);
+        setTimeout(() => storyOverlay.setAttribute("aria-hidden", "true"), 1500);
+      }
+    }, 3000);
+  }
+
+  // Trigger automatically after welcome screen closes
+  const enterBtn = document.getElementById("enterBtn");
+  if (enterBtn) {
+    enterBtn.addEventListener("click", () => {
+      autoAdvance();
+    });
+  }
+});
