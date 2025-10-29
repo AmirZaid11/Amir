@@ -36,7 +36,7 @@ const CHANNELS = [
   },
   {
     id: 'classy',
-    title: 'Not Sassy, Just Classy',
+    title: 'Not Nasty, Just Sassy',
     tagline: 'Story Za Jaba Reloaded',
     img: 'assets/NOT NASTY.jpg',
     link: 'https://whatsapp.com/channel/0029VagrgeW7Noa9WMoww430'
