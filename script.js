@@ -45,7 +45,7 @@ const CHANNELS = [
     id: 'maseno',
     title: 'Maseno University',
     tagline: 'All updates From our University',
-    img: 'assets/maseno_university.jpg',
+    img: 'assets/Screenshot 2025-10-29 070952.png',
     link: 'https://whatsapp.com/channel/0029VaF4Qeu4Y9ljNjoOdA02'
   },
   {
